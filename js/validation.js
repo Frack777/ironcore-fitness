@@ -1,6 +1,5 @@
 /**
  * Membership Registration Form Validation
- * Demonstrates: variables, arrays, functions, if/else, switch, loops, DOM manipulation, events
  *
  * PRESENTATION — MAIN JAVASCRIPT CHALLENGE:
  * Validate many field types (text, email, phone, number, selects, checkbox),
