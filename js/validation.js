@@ -20,6 +20,7 @@
     "phone",
     "age",
     "emergencyContact",
+    "emergencyPhone",
     "membershipType",
     "preferredTime",
     "fitnessGoals",
@@ -88,17 +89,21 @@
     }
   }
 
-  function validatePhone(value) {
+  function validatePhoneValue(value, fieldLabel) {
     if (!value) {
-      return "Phone number is required.";
+      return fieldLabel + " is required.";
     }
     var digitsOnly = value.replace(/\D/g, "");
     if (digitsOnly.length < 10 || digitsOnly.length > 11) {
-      return "Phone must contain 10–11 digits.";
+      return fieldLabel + " must contain 10–11 digits.";
     }
     if (!phonePattern.test(value)) {
       return "Use format: (555) 123-4567 or 555-123-4567.";
     }
+  }
+
+  function validatePhone(value) {
+    return validatePhoneValue(value, "Phone number");
   }
 
   function validateAge(value) {
@@ -116,11 +121,15 @@
 
   function validateEmergencyContact(value) {
     if (!value) {
-      return "Emergency contact is required.";
+      return "Emergency contact name is required.";
     }
-    if (value.length < 5) {
-      return "Please include name and relationship.";
+    if (value.length < 2) {
+      return "Emergency contact name must be at least 2 characters.";
     }
+  }
+
+  function validateEmergencyPhone(value) {
+    return validatePhoneValue(value, "Emergency contact phone");
   }
 
   function validateMembershipType(value) {
@@ -172,51 +181,64 @@
     }
   }
 
-  function validateForm() {
+  function getFieldError(fieldId) {
+    switch (fieldId) {
+      case "fullName":
+        return validateFullName(getValue("fullName"));
+      case "email":
+        return validateEmail(getValue("email"));
+      case "phone":
+        return validatePhone(getValue("phone"));
+      case "age":
+        return validateAge(getValue("age"));
+      case "emergencyContact":
+        return validateEmergencyContact(getValue("emergencyContact"));
+      case "emergencyPhone":
+        return validateEmergencyPhone(getValue("emergencyPhone"));
+      case "membershipType":
+        return validateMembershipType(getValue("membershipType"));
+      case "preferredTime":
+        return validatePreferredTime(getValue("preferredTime"));
+      case "fitnessGoals":
+        return validateFitnessGoals(getValue("fitnessGoals"));
+      case "termsAgree":
+        return validateTerms(getValue("termsAgree"));
+      default:
+        return undefined;
+    }
+  }
+
+  function validateField(fieldId) {
+    var msg = getFieldError(fieldId);
+    setFieldError(fieldId, msg || "");
+    return !msg;
+  }
+
+  function validateForm(shouldScroll) {
     clearAllErrors();
 
     var errors = [];
-    var fullName = getValue("fullName");
-    var email = getValue("email");
-    var phone = getValue("phone");
-    var age = getValue("age");
-    var emergencyContact = getValue("emergencyContact");
-    var membershipType = getValue("membershipType");
-    var preferredTime = getValue("preferredTime");
-    var fitnessGoals = getValue("fitnessGoals");
-    var termsAgree = getValue("termsAgree");
-
-    var checks = [
-      { id: "fullName", msg: validateFullName(fullName) },
-      { id: "email", msg: validateEmail(email) },
-      { id: "phone", msg: validatePhone(phone) },
-      { id: "age", msg: validateAge(age) },
-      { id: "emergencyContact", msg: validateEmergencyContact(emergencyContact) },
-      { id: "membershipType", msg: validateMembershipType(membershipType) },
-      { id: "preferredTime", msg: validatePreferredTime(preferredTime) },
-      { id: "fitnessGoals", msg: validateFitnessGoals(fitnessGoals) },
-      { id: "termsAgree", msg: validateTerms(termsAgree) }
-    ];
-
     var index = 0;
-    while (index < checks.length) {
-      var check = checks[index];
-      if (check.msg) {
-        setFieldError(check.id, check.msg);
-        errors.push(check.msg);
+
+    while (index < fieldIds.length) {
+      var fieldId = fieldIds[index];
+      var msg = getFieldError(fieldId);
+      if (msg) {
+        setFieldError(fieldId, msg);
+        errors.push(msg);
       }
       index++;
     }
 
     if (errors.length > 0) {
-      displayFormErrors(errors);
+      displayFormErrors(errors, shouldScroll);
       return false;
     }
 
     return true;
   }
 
-  function displayFormErrors(errorMessages) {
+  function displayFormErrors(errorMessages, shouldScroll) {
     var formErrors = document.getElementById("formErrors");
     if (!formErrors) {
       return;
@@ -232,7 +254,10 @@
 
     formErrors.innerHTML = html;
     formErrors.hidden = false;
-    formErrors.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    if (shouldScroll) {
+      formErrors.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
   }
 
   function getMembershipLabel(value) {
@@ -268,7 +293,7 @@
       successMessage.hidden = true;
     }
 
-    if (validateForm()) {
+    if (validateForm(true)) {
       var memberName = getValue("fullName");
       var plan = getMembershipLabel(getValue("membershipType"));
       console.log("Registration submitted:", memberName, plan);
@@ -292,7 +317,7 @@
       if (!fieldId) {
         return;
       }
-      validateForm();
+      validateField(fieldId);
     });
     n++;
   }

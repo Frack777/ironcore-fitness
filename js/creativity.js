@@ -1,5 +1,5 @@
 /**
- * Creativity Page — Slideshow, WOD Generator, Countdown, Goal Tracker, Theme Toggle
+ * Creativity Page — Slideshow, WOD Generator, Countdown, Goal Tracker
  */
 (function () {
   /* ─── Image Slideshow ─── */
@@ -271,24 +271,4 @@
     updateProgress();
   }
 
-  /* ─── Light / Dark Theme Toggle ─── */
-  var themeToggle = document.getElementById("themeToggle");
-  var savedTheme = localStorage.getItem("ironcore-theme");
-
-  if (savedTheme === "light") {
-    document.body.classList.add("theme-light");
-    if (themeToggle) {
-      themeToggle.setAttribute("aria-pressed", "true");
-      themeToggle.textContent = "Switch to Dark";
-    }
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", function () {
-      var isLight = document.body.classList.toggle("theme-light");
-      themeToggle.setAttribute("aria-pressed", isLight ? "true" : "false");
-      themeToggle.textContent = isLight ? "Switch to Dark" : "Toggle Light/Dark";
-      localStorage.setItem("ironcore-theme", isLight ? "light" : "dark");
-    });
-  }
 })();
