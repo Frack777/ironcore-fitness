@@ -62,9 +62,9 @@ git push -u origin main
 - [x] External JavaScript (`js/validation.js`, `js/creativity.js`, `js/nav.js`)
 - [x] Form validation (all fields, email, phone, age, etc.)
 - [x] Creativity page: slideshow, WOD generator, countdown, progress bar, theme toggle
-- [ ] Publish on GitHub Pages (submit URLs to your instructor)
+- [x] Publish on GitHub Pages
 
-## Submission URLs (fill in after deploy)
+## Live Site
 
-- **GitHub Pages:** `https://YOUR_USERNAME.github.io/REPO_NAME/`
-- **Repository:** `https://github.com/YOUR_USERNAME/REPO_NAME`
+- **GitHub Pages:** https://frack777.github.io/ironcore-fitness/
+- **Repository:** https://github.com/Frack777/ironcore-fitness
