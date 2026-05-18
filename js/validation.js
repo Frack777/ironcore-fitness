@@ -1,6 +1,10 @@
 /**
  * Membership Registration Form Validation
  * Demonstrates: variables, arrays, functions, if/else, switch, loops, DOM manipulation, events
+ *
+ * PRESENTATION — MAIN JAVASCRIPT CHALLENGE:
+ * Validate many field types (text, email, phone, number, selects, checkbox),
+ * show custom errors in the page, and reuse the same rules on submit AND blur.
  */
 (function () {
   var form = document.getElementById("membershipForm");
@@ -14,6 +18,7 @@
   var maxAge = 99;
   var minGoalsLength = 20;
 
+  /* PRESENTATION: array of every field — looped on submit to validate the whole form */
   var fieldIds = [
     "fullName",
     "email",
@@ -27,9 +32,11 @@
     "termsAgree"
   ];
 
+  /* PRESENTATION: regex patterns — challenge was accepting real-world email/phone formats */
   var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   var phonePattern = /^(\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
 
+  /* PRESENTATION: challenge — checkboxes use .checked; other inputs use .value.trim() */
   function getValue(id) {
     var element = document.getElementById(id);
     if (!element) {
@@ -41,6 +48,7 @@
     return element.value.trim();
   }
 
+  /* PRESENTATION: DOM manipulation — update input style + error message under each field */
   function setFieldError(fieldId, message) {
     var input = document.getElementById(fieldId);
     var errorEl = document.getElementById(fieldId + "Error");
@@ -89,6 +97,7 @@
     }
   }
 
+  /* PRESENTATION: phone challenge — strip non-digits AND match pattern (555) 123-4567, etc. */
   function validatePhoneValue(value, fieldLabel) {
     if (!value) {
       return fieldLabel + " is required.";
@@ -181,6 +190,7 @@
     }
   }
 
+  /* PRESENTATION: switch — one function routes each field to the correct validator */
   function getFieldError(fieldId) {
     switch (fieldId) {
       case "fullName":
@@ -208,12 +218,14 @@
     }
   }
 
+  /* PRESENTATION: blur validation — check one field without re-validating the entire form */
   function validateField(fieldId) {
     var msg = getFieldError(fieldId);
     setFieldError(fieldId, msg || "");
     return !msg;
   }
 
+  /* PRESENTATION: loop + errors array — collect every failed rule, then show summary */
   function validateForm(shouldScroll) {
     clearAllErrors();
 
@@ -238,6 +250,7 @@
     return true;
   }
 
+  /* PRESENTATION: build error list HTML and inject into #formErrors (DOM modification) */
   function displayFormErrors(errorMessages, shouldScroll) {
     var formErrors = document.getElementById("formErrors");
     if (!formErrors) {
@@ -285,6 +298,7 @@
     clearAllErrors();
   }
 
+  /* PRESENTATION: submit event — preventDefault stops page reload; then run full validation */
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -309,6 +323,7 @@
     }
   });
 
+  /* PRESENTATION: blur event — give instant feedback when user leaves a field */
   var inputs = form.querySelectorAll("input, select, textarea");
   var n = 0;
   while (n < inputs.length) {
