@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Register for membership at IronCore Fitness.">
+  <title>Membership Registration | IronCore Fitness</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="IronCore Fitness home">
+        <span class="logo-mark">IC</span>
+        <span class="logo-text">IronCore<span>Fitness</span></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">About Us</a></li>
+          <li><a href="membership.html" class="active">Membership</a></li>
+          <li><a href="creativity.html">Creativity</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-hero page-hero--compact">
+      <div class="container">
+        <h1>Membership Registration</h1>
+        <p>Complete the form below to start your membership. All fields are required.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container form-container">
+        <form id="membershipForm" class="registration-form" novalidate>
+          <div id="formErrors" class="form-errors" role="alert" aria-live="polite" hidden></div>
+
+          <fieldset>
+            <legend>Personal Information</legend>
+
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" name="fullName" autocomplete="name" placeholder="Jane Smith">
+              <span class="field-error" id="fullNameError"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com">
+                <span class="field-error" id="emailError"></span>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(555) 123-4567">
+                <span class="field-error" id="phoneError"></span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="16" max="99" placeholder="25">
+                <span class="field-error" id="ageError"></span>
+              </div>
+              <div class="form-group">
+                <label for="emergencyContact">Emergency Contact</label>
+                <input type="text" id="emergencyContact" name="emergencyContact" placeholder="Name and relationship">
+                <span class="field-error" id="emergencyContactError"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Membership Details</legend>
+
+            <div class="form-group">
+              <label for="membershipType">Membership Type</label>
+              <select id="membershipType" name="membershipType">
+                <option value="">Select a plan…</option>
+                <option value="basic">Basic — $39/mo (gym floor access)</option>
+                <option value="plus">Plus — $59/mo (+ group classes)</option>
+                <option value="elite">Elite — $89/mo (+ 2 PT sessions/mo)</option>
+                <option value="family">Family — $119/mo (up to 4 members)</option>
+              </select>
+              <span class="field-error" id="membershipTypeError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="preferredTime">Preferred Training Time</label>
+              <select id="preferredTime" name="preferredTime">
+                <option value="">Select a time…</option>
+                <option value="early">Early Morning (5am – 8am)</option>
+                <option value="mid">Midday (11am – 2pm)</option>
+                <option value="evening">Evening (5pm – 9pm)</option>
+                <option value="weekend">Weekends</option>
+              </select>
+              <span class="field-error" id="preferredTimeError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="fitnessGoals">Fitness Goals</label>
+              <textarea id="fitnessGoals" name="fitnessGoals" rows="4" placeholder="Describe what you want to achieve (min. 20 characters)…"></textarea>
+              <span class="field-error" id="fitnessGoalsError"></span>
+            </div>
+
+            <div class="form-group form-group--checkbox">
+              <label class="checkbox-label">
+                <input type="checkbox" id="termsAgree" name="termsAgree">
+                I agree to the gym rules, waiver, and privacy policy.
+              </label>
+              <span class="field-error" id="termsAgreeError"></span>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit Registration</button>
+            <button type="reset" class="btn btn-outline" id="resetBtn">Clear Form</button>
+          </div>
+
+          <div id="successMessage" class="success-message" role="status" hidden>
+            <h3>Registration Successful!</h3>
+            <p>Thank you for joining IronCore Fitness. A team member will contact you within 24 hours.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 IronCore Fitness. CST 2309 Final Project.</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="index.html">About</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a href="creativity.html">Creativity</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/validation.js"></script>
+</body>
+</html>
