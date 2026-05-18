@@ -243,6 +243,9 @@
     }
 
     if (errors.length > 0) {
+      console.group("Validation failed — " + errors.length + " error(s)");
+      console.log(errors);
+      console.groupEnd();
       displayFormErrors(errors, shouldScroll);
       return false;
     }
@@ -336,4 +339,31 @@
     });
     n++;
   }
+
+  /* Logs presentation notes in Chrome DevTools → Console (Membership page only) */
+  function logPresentationGuide() {
+    var headerStyle = "color:#fff;background:#e85d04;padding:6px 10px;font-size:14px;font-weight:bold;border-radius:4px;";
+    var labelStyle = "color:#e85d04;font-weight:bold;";
+
+    console.log("%c IronCore Fitness — Presentation: Form Validation ", headerStyle);
+    console.log(
+      "Main challenge: validate text, email, phone, age, selects, and checkbox — " +
+      "show errors on the page and reuse the same rules on submit and blur."
+    );
+    console.log("Code comments: Sources tab → js/validation.js → search PRESENTATION");
+
+    console.group("Key JavaScript to show your instructor");
+    console.log("%c1. getValue()", labelStyle, "— checkboxes use .checked; other inputs use .value.trim()");
+    console.log("%c2. Regex", labelStyle, "— emailPattern and phonePattern for format checks");
+    console.log("%c3. getFieldError() + switch", labelStyle, "— routes each field to the right validator");
+    console.log("%c4. validateForm()", labelStyle, "— while loop over fieldIds array; errors.push(msg)");
+    console.log("%c5. displayFormErrors()", labelStyle, "— DOM: innerHTML on #formErrors + per-field messages");
+    console.log("%c6. submit listener", labelStyle, "— event.preventDefault(); then validateForm(true)");
+    console.log("%c7. blur listener", labelStyle, "— validateField(fieldId) for one field at a time");
+    console.groupEnd();
+
+    console.log("Demo: submit empty form → fix email → tab out (blur) → submit again.");
+  }
+
+  logPresentationGuide();
 })();
